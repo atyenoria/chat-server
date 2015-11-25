@@ -1,18 +1,5 @@
 var count = 0
-    // var d = require('debug')('dev');
-
-// DEBUG=bar node example.js
-
-var w = require('winston').log;
-w('debug', 'Hello distributed log files!');
-w('info', 'Hello distributed log files!');
-w('info', "");
 var l = console.log
-l("sample")
-
-
-//template
-w('')
 
 var jwt = require('jsonwebtoken');
 

@@ -1,7 +1,10 @@
 'user strict';
 
 var bodyparser = require('body-parser');
-var User = require('../models/User.js');
+import {
+    User1
+}
+from '../models/User.js'
 
 module.exports = function loadUserRoutes(router, passport) {
 

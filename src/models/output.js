@@ -1,8 +1,12 @@
-import bcrypt from 'bcrypt-nodejs';
-
-import mongoose from 'mongoose';
-
-export const User1 = mongoose.Schema({
+import {
+    bcrypt
+}
+from 'bcrypt-nodejs';
+import {
+    mongoose
+}
+from 'mongoose';
+const UserSchema = mongoose.Schema({
     local: {
         username: {
             type: String,
@@ -19,7 +23,7 @@ export const User1 = mongoose.Schema({
         email: String
     }
 });
-User1.pre('save', next => {
+UserSchema.pre('save', next => {
     const currentDate = new Date();
     this.updated_at = currentDate;
     if (!this.created_at)
@@ -44,18 +48,35 @@ User1.pre('save', next => {
 // 		cb(null, response);
 // 	});
 // };
-User1.methods.generateHash = password => {
+UserSchema.methods.generateHash = password => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 // checking if password is valid
-User1.methods.validPassword = password => {
+UserSchema.methods.validPassword = password => {
     return bcrypt.compareSync(password, this.local.password);
 };
-
-
-
-export const User2 = mongoose.Schema({
+export const UserSchema2 = mongoose.Schema({
+    local: {
+        username: {
+            type: String,
+            unique: true
+        },
+        password: String,
+        email: String,
+        socketid: String
+    },
+    facebook: {
+        id: String,
+        username: String,
+        token: String,
+        email: String
+    }
+});
+export const User3 = mongoose.model('User3', UserSchema2);
+export const Schema = mongoose.User3;
+module.exports = mongoose.model('User2', new Schema({
     name: String,
     password: String,
     admin: Boolean
-});
+}));
+export const User1 = mongoose.model('User', UserSchema);
