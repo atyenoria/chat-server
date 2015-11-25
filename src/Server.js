@@ -2,7 +2,7 @@ require('../.vscode/server.babel');
 import express from 'express'
 var app = express()
 
-var path = require('path');
+import path from 'path'
 var http = require('http').Server(app);
 var mongoose = require('mongoose');
 var session = require('express-session');
