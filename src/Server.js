@@ -96,7 +96,7 @@ app.use('/api', channelRouter);
 
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../.vscode/index.html'));
+    res.sendFile(path.join(__dirname, './index.html'));
 });
 
 
