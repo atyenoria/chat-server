@@ -35,7 +35,7 @@ app.use(morgan(' ":method :url HTTP/:http-version" :status :res[content-length]'
 import passport from 'passport';
 require('./passport/passport')(passport)
 const MongoStore = require('connect-mongo')(session)
-process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/chat_dev';
+process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/test2';
 process.env.PORT = 3000;
 mongoose.connect(process.env.MONGOLAB_URI);
 app.use(session({
@@ -61,8 +61,14 @@ app.use(passport.session());
 
 
 //load routers
-import testrouter from './routes/test'
-app.use('/jwt', testrouter);
+const jwt = express.Router();
+require('./routes/test')(jwt);
+app.use('/jwt', jwt);
+
+
+// import testrouter from './routes/test'
+// app.use('/jwt', testrouter);
+
 
 const messageRouter = express.Router();
 const usersRouter = express.Router();
@@ -92,11 +98,6 @@ const server = app.listen(PORT, 'localhost', err => {
     }
     console.log('************ App Server on port: %s ************', PORT);
 });
-
-
-
-
-
 
 
 

@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-var babelrc = fs.readFileSync('./.vscode/.babelrc');
+var babelrc = fs.readFileSync('./.babelrc');
 
 try {
   config = JSON.parse(babelrc);

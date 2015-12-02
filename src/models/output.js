@@ -1,82 +1,10 @@
-import {
-    bcrypt
-}
-from 'bcrypt-nodejs';
-import {
-    mongoose
-}
-from 'mongoose';
-const UserSchema = mongoose.Schema({
-    local: {
-        username: {
-            type: String,
-            unique: true
-        },
-        password: String,
-        email: String,
-        socketid: String
-    },
-    facebook: {
-        id: String,
-        username: String,
-        token: String,
-        email: String
-    }
+'use strict';
+const mongoose = require('mongoose');
+const messageSchema = mongoose.Schema({
+    id: String,
+    channelID: String,
+    text: String,
+    user: String,
+    time: String
 });
-UserSchema.pre('save', next => {
-    const currentDate = new Date();
-    this.updated_at = currentDate;
-    if (!this.created_at)
-        this.created_at = currentDate;
-    next();
-});
-// stashed async methods
-// UserSchema.methods.generateHash = function generateHash(password, callback) {
-//   bcrypt.genSalt(8, function(err, salt) {
-//     bcrypt.hash(password, salt, null, function saveHashedPassword(err, hash) {
-//       if (err) throw err;
-//       callback(hash);
-//     });
-//   });
-// };
-//
-// UserSchema.methods.checkPassword = function(password, cb) {
-// 	bcrypt.compare(password, this.password, function(err, response) {
-// 		if (err) {
-// 			return cb(err);
-// 		}
-// 		cb(null, response);
-// 	});
-// };
-UserSchema.methods.generateHash = password => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-// checking if password is valid
-UserSchema.methods.validPassword = password => {
-    return bcrypt.compareSync(password, this.local.password);
-};
-export const UserSchema2 = mongoose.Schema({
-    local: {
-        username: {
-            type: String,
-            unique: true
-        },
-        password: String,
-        email: String,
-        socketid: String
-    },
-    facebook: {
-        id: String,
-        username: String,
-        token: String,
-        email: String
-    }
-});
-export const User3 = mongoose.model('User3', UserSchema2);
-export const Schema = mongoose.User3;
-module.exports = mongoose.model('User2', new Schema({
-    name: String,
-    password: String,
-    admin: Boolean
-}));
-export const User1 = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Message', messageSchema);
