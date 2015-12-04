@@ -128,4 +128,7 @@ io.adapter(adapter({
     pubClient: pub,
     subClient: sub
 }));
-const socketEvents = require('./socketEvents')(io);
+
+
+//const socketEvents = require('./socketEvents')(io);
+const socketEvents = require('./socket_test')(io);
