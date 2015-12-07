@@ -35,7 +35,7 @@ exports = module.exports = function(io) {
             clearTimeout(auth_timeout);
             jwt.verify(data.token, options.secret, options, function(err, decoded) {
                 if (err) {
-                    socket.disconnect('unauthorized');
+                    socket.disconnect('authorized');
                 }
                 if (!err && decoded) {
                     //restore temporarily disabled connection
@@ -57,6 +57,12 @@ exports = module.exports = function(io) {
                     socket.emit('test', {
                         test: "server ok"
                     })
+
+                    socket.on('test', function () {
+                        console.log("test auth")
+                    }
+
+
                     socket.emit('socketid', socket.id)
                     console.log(socket.id)
                     socket.on('restart', function(channel) {
@@ -107,6 +113,11 @@ exports = module.exports = function(io) {
 
 
         socket.on('authenticate', authenticate);
+
+
+        socket.on('test', function () {
+            console.log("test default");
+        })
 
     })
 };
